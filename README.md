@@ -57,7 +57,7 @@ Setiap link menggunakan `/30`. Dua alamat usable dipakai oleh kedua interface ro
 
 ### Pohon pembagian IP
 
-![Pohon VLSM K-58](./Pohon_VLSM_K58.png)
+![Pohon VLSM K-58](./bukti/Pohon_VLSM_K58.png)
 
 Nomor pada lingkaran menunjukkan urutan yang dilewati paket. Dummy-Plug (`192.240.4.51`) dan Armisael (`192.240.4.83`) berada pada LAN yang berbeda.
 
@@ -105,8 +105,9 @@ Fungsi `pasang_ip` mengaktifkan interface lalu memasang alamat beserta prefix-ny
 | Kaworu | Hikari · `192.240.4.149` | 3/3 balasan |
 | Asuka | Gendou · `192.240.4.117`, Kensuke · `192.240.4.154`, Ritsuko · `192.240.4.158` | 3/3 balasan dari setiap tujuan |
 
-![Bukti soal 2](./bukti-soal2.png)
-![Bukti soal 2 lanjutan](./bukti-soal2(2).png)
+![Bukti soal 2](./bukti/bukti-soal2.png)
+
+![Bukti soal 2 lanjutan](./bukti/bukti-soal2(2).png)
 
 ## Soal 3 · Routing statis dan uji lintas LAN
 
@@ -129,7 +130,7 @@ ip route replace default via "$gateway" dev eth0
 
 Pada Armisael, `eth0` memakai `192.240.4.83/29` dan default gateway `192.240.4.81` milik Shigeru. Pengujian dari Armisael ke Lilith (`192.240.4.74`), Sachiel (`192.240.3.130`), dan Comm-Net (`192.240.2.2`) masing-masing menghasilkan **3 paket terkirim dan 3 diterima**. Ketiga tujuan berada di cabang berbeda.
 
-![Bukti soal 3](./bukti-soal3.png)
+![Bukti soal 3](./bukti/bukti-soal3.png)
 
 ## Soal 4 · Akses internet dan DNS melalui Gendou
 
@@ -149,7 +150,8 @@ Opsi `-s` membatasi sumber ke prefix kelompok dan `-o` mencocokkan interface kel
 
 Armisael dan Lilith menerima balasan dari `8.8.8.8` dan dari alamat hasil resolusi `deb.debian.org`. Saat pengujian, nama tersebut mengarah ke `debian.map.fastlydns.net`. Armisael mendapat `151.101.194.132` dan Lilith mendapat `151.101.66.132`. Di Gendou, counter aturan `MASQUERADE` pada `eth7` menunjukkan **12 paket dan 863 byte**.
 
-![Bukti soal 4](./bukti-soal4.png)
+![Bukti soal 4](./bukti/bukti-soal4.png)
+
 
 ## Soal 5 · Firewall pada pintu keluar Gendou
 
@@ -176,7 +178,8 @@ Paket untuk Gendou diperiksa pada `INPUT`, sedangkan paket yang melewati Gendou 
 
 Bukti `iptables -S` menampilkan policy dan aturan aktif. Setelah firewall diterapkan, Armisael mendapat **3/3 balasan** masing-masing dari Gendou (`192.240.4.129`), Lilith (`192.240.4.74`), dan internet (`8.8.8.8`). Tiga tujuan ini menguji akses ke router, akses antar-LAN, dan akses keluar.
 
-![Bukti soal 5](./bukti-soal5.png)
+![Bukti soal 5](./bukti/bukti-soal5.png)
+
 
 ## Soal 6 · IP dan gateway permanen untuk host
 
@@ -229,7 +232,7 @@ ip route replace default via "$gateway" dev eth0
 
 Setelah Unit-01 direstart, `ip -br -4 addr` tetap menampilkan `192.240.4.66/29` pada `eth0`. Default route tetap menuju Misato di `192.240.4.65`. Ping ke gateway menghasilkan **3/3 balasan**.
 
-![Bukti soal 6](./bukti-soal6.png)
+![Bukti soal 6](./bukti/bukti-soal6.png)
 
 ## Soal 7 · Listener TCP dan log pesan pada MAGI
 
@@ -271,7 +274,7 @@ Pemeriksaan `ss` melewati port yang sudah aktif. Untuk port lain, `nohup` menjal
 | Magi-Balthasar | 5001 | `Lilith ke Magi-Balthasar port 5001 \| uji 16:28:38` |
 | Magi-Melchior | 5000 | `Lilith ke Magi-Melchior port 5000 \| uji 16:28:38` |
 
-![Bukti soal 7](./bukti-soal7.png)
+![Bukti soal 7](./bukti/bukti-soal7.png)
 
 ## Soal 8 · Respons layanan Pen-Pen dan Tokyo3-Core
 
@@ -302,7 +305,8 @@ Nilai `$(hostname)` diambil pada node yang menjalankan listener. Dengan demikian
 
 Hasil pada TCP 22 menunjukkan koneksi langsung ditolak. Uji selesai dalam 3 ms, sehingga kegagalan tersebut dapat dibedakan dari koneksi yang menunggu sampai timeout.
 
-![Bukti soal 8](./bukti-soal8.png)
+![Bukti soal 8](./bukti/bukti-soal8.png)
+
 
 ## Soal 9 · Diagnosis dan pemulihan routing di Shigeru
 
@@ -325,7 +329,8 @@ Baris terakhir pada `/root/cek-nomor9.sh` meminta kernel menghitung rute balasan
 
 Setelah perbaikan di Shigeru, Lilith menerima **3 dari 3** balasan dari Armisael dengan **0% packet loss**. Bukti ini menunjukkan konektivitas pulih. Output diagnosis sebelum perbaikan dan perintah koreksi tidak tercatat, sehingga entri rute atau aturan spesifik penyebab gangguan belum dapat diidentifikasi dari bukti ini.
 
-![Bukti soal 9](./bukti-soal9.png)
+![Bukti soal 9](./bukti/bukti-soal9.png)
+
 
 ## Soal 10 · Pemulihan akses internet dari Switch-Cage
 
@@ -358,4 +363,4 @@ Menurut catatan perbaikan, aturan NAT yang keliru di Misato dan Gendou dihapus. 
 
 Setelah perbaikan, Unit-01 menerima **3/3 balasan dari `8.8.8.8`** dan **3/3 balasan dari Lilith (`192.240.4.74`)**. Screenshot merekam kedua uji dari Unit-01. Rincian aturan NAT yang dihapus dan output uji Spy sebelum perbaikan tidak tercantum dalam bukti.
 
-![Bukti soal 10](./bukti-soal10.png)
+![Bukti soal 10](./bukti/bukti-soal10.png)
